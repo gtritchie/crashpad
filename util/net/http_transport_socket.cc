@@ -100,14 +100,9 @@ class SSLStream : public Stream {
                   const std::string& hostname) {
     SSL_library_init();
 
-    ctx_.reset(SSL_CTX_new(TLS_method()));
+    ctx_.reset(SSL_CTX_new(TLSv1_2_method()));
     if (!ctx_.is_valid()) {
       LOG(ERROR) << "SSL_CTX_new";
-      return false;
-    }
-
-    if (SSL_CTX_set_min_proto_version(ctx_.get(), TLS1_2_VERSION) <= 0) {
-      LOG(ERROR) << "SSL_CTX_set_min_proto_version";
       return false;
     }
 
