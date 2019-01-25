@@ -259,7 +259,7 @@ static_library("util") {
   deps = []
 
   if (crashpad_is_linux || crashpad_is_fuchsia) {
-    sources += [ "net/http_transport_socket.cc" ]
+    sources += [ "net/http_transport_libcurl.cc" ]
     if (crashpad_use_boringssl_for_http_transport_socket) {
       defines = [ "CRASHPAD_USE_BORINGSSL" ]
 
@@ -271,6 +271,13 @@ static_library("util") {
           "ssl",
         ]
       }
+    }
+    else {
+      libs = [
+        "crypto",
+        "ssl",
+        "curl",
+      ]
     }
   } else if (crashpad_is_android) {
     sources += [ "net/http_transport_none.cc" ]

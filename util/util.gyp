@@ -388,8 +388,13 @@
           ],
         }],
         ['OS=="linux"', {
+          'link_settings': {
+            'libraries': [ 
+              '-lcurl', 
+            ],
+          },
           'sources': [
-            'net/http_transport_socket.cc',
+            'net/http_transport_libcurl.cc',
           ],
         }, {  # else: OS!="linux"
           'sources!': [
